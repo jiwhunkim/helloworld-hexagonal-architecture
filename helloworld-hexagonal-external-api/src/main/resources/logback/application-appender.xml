@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appender name="APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}application.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_PATH}/application-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+        <maxHistory>2</maxHistory>
+        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>100MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder" >
+        <includeContext>true</includeContext>
+        <includeCallerData>true</includeCallerData>
+        <timestampPattern>yyyy-MM-dd HH:mm:ss.SSS</timestampPattern>
+        <fieldNames>
+            <timestamp>timestamp</timestamp>
+            <thread>thread</thread>
+            <message>message</message>
+            <stackTrace>exception</stackTrace>
+            <mdc>context</mdc>
+        </fieldNames>
+    </encoder>
+</appender>
