@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  redis:
+    container_name: "redis"
+    image: redis:latest
+    command: ["--notify-keyspace-events", "Ex"]
+    ports:
+    - "6379:6379"
+    volumes:
+    - ./docker-volumes/redis:/data
+  mysql:
+    container_name: "mysql"
+    image: mysql:latest
+    command: ['mysqld', --skip-character-set-client-handshake, --init_connect=SET NAMES utf8mb4, --default-authentication-plugin=mysql_native_password, --character-set-server=utf8mb4, --collation-server=utf8mb4_general_ci]
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USE: user
+      MYSQL_PASSWORD: pass
+      TZ: 'Asia/Seoul'
+    ports:
+    - "3306:3306"
+    volumes:
+    - ./docker-volumes/mysql:/var/lib/mysql
+    - ./docker-config/mysql/config-file.cnf:/etc/mysql/conf.d/config-file.cnf
+  zookeeper:
+    container_name: "zookeeper"
+    image: bitnami/zookeeper:latest
+    ports:
+    - "2181:2181"
+    environment:
+    - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+    - ./docker-volumes/zookeeper:/bitnami/zookeeper
+  kafka:
+    container_name: "kafka"
+    image: bitnami/kafka:latest
+    environment:
+    - KAFKA_BROKER_ID=1
+    - KAFKA_ADVERTISED_HOST_NAME=127.0.0.1
+    - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    - ALLOW_PLAINTEXT_LISTENER=yes
+    - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+    - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+    - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://localhost:9092,EXTERNAL://localhost:9093
+    - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+    ports:
+    - "9092:9092"
+    volumes:
+    - ./docker-volumes/kafka:/bitnami/kafka
+    depends_on:
+      - zookeeper
+  kafdrop:
+    container_name: "kafdrop"
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      - KAFKA_BROKERCONNECT=kafka:9092
+      - JVM_OPTS=-Xms32M -Xmx64M
+    depends_on:
+      - kafka
