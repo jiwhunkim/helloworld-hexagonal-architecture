@@ -4,6 +4,7 @@ import com.helloworld.order.adapter.out.persistence.converter.OrderToOrderEntity
 import com.helloworld.order.application.port.out.OrderDomainPort
 import com.helloworld.order.domain.Order
 import com.helloworld.order.domain.PlaceOrder
+import com.helloworld.order.domain.entity.AmountEntity
 import com.helloworld.order.domain.entity.OrderEntity
 import com.helloworld.order.domain.entity.OrderItemEntity
 import com.helloworld.order.domain.entity.OrderJpaRepository
@@ -28,7 +29,8 @@ class OrderPersistenceAdapter(
                 productId = it.productId,
                 productName = it.productName,
                 quantity = it.quantity,
-                price = it.price
+                price = it.price,
+                amount = AmountEntity(it.price.multiply(it.quantity.toBigDecimal()))
             )
         }.toMutableList()
 

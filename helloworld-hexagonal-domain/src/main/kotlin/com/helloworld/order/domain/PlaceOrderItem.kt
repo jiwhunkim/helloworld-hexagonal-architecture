@@ -6,5 +6,6 @@ class PlaceOrderItem(
     val productId: Long,
     val productName: String,
     val quantity: Int,
-    val price: BigDecimal
+    val price: BigDecimal,
+    val amount: Amount
 )

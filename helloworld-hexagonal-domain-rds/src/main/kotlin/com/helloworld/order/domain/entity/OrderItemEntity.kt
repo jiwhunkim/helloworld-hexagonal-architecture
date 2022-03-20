@@ -9,6 +9,7 @@ class OrderItemEntity(
     productName: String,
     quantity: Int,
     price: BigDecimal,
+    amount: AmountEntity,
     id: Long = 0,
 ) {
     @Id
@@ -30,5 +31,9 @@ class OrderItemEntity(
 
     @Column
     var price: BigDecimal = price
+        protected set
+
+    @Column
+    var amount: AmountEntity = amount
         protected set
 }
