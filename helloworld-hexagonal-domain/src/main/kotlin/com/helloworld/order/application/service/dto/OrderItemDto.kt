@@ -8,6 +8,9 @@ class OrderItemDto(
     val productName: String,
     val quantity: Int,
     val price: BigDecimal,
-    val amount: AmountDto
+    val salePrice: BigDecimal,
+    val taxBaseAmount: BigDecimal,
+    val taxFreeAmount: BigDecimal,
+    val taxAmount: BigDecimal
 ) {
 }

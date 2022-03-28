@@ -12,6 +12,8 @@ buildscript {
     }
 }
 
+extra["kotlin-coroutines.version"] = "1.6.0"
+
 plugins {
     kotlin("jvm") version Libs.Versions.kotlin
     kotlin("kapt") version Libs.Versions.kotlin

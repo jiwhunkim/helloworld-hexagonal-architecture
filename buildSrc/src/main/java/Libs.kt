@@ -8,7 +8,7 @@ object Libs {
     const val ktlint = "10.1.0"
     const val allopen = "1.5.10"
     const val kassava = "2.0.0"
-    const val kotest = "5.0.3"
+    const val kotest = "5.2.1"
     const val kotest_extensions = "1.1.0"
     const val mockk = "1.12.2"
     const val querydsl = "4.2.2"
