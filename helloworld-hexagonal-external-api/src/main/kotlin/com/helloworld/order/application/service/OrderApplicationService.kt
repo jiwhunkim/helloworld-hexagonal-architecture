@@ -13,13 +13,13 @@ class OrderApplicationService(
     val placeOrderRequestDtoConverter: PlaceOrderRequestDtoConverter
 ) : OrderApplicationServicePort {
     override fun getOrder(id: Long): GetOrderResponseDto {
-        val orderDto = orderApplicationPort.getOrder(id)
+        val orderDto = orderApplicationPort.getOrderDto(id)
         return GetOrderResponseDto(orderDto)
     }
 
     override fun placeOrder(placeOrderRequestDto: PlaceOrderRequestDto): GetOrderResponseDto {
         val placeOrder = placeOrderRequestDtoConverter.convert(placeOrderRequestDto) ?: throw IllegalArgumentException("wrong orderDto")
-        val result = orderApplicationPort.placeOrder(placeOrder)
+        val result = orderApplicationPort.placeOrderDto(placeOrder)
         return GetOrderResponseDto(result)
     }
 }

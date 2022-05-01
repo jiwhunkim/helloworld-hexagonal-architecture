@@ -13,12 +13,12 @@ class OrderDomainApplicationService(
     private val orderDomainPort: OrderDomainPort,
     private val orderToOrderDtoConverter: OrderToOrderDtoConverter
 ) : OrderApplicationPort {
-    override fun getOrder(id: Long): OrderDto {
+    override fun getOrderDto(id: Long): OrderDto {
         val order = orderDomainPort.getOrder(id)
         return orderToOrderDtoConverter.convert(order) ?: throw IllegalArgumentException("wrong order")
     }
 
-    override fun placeOrder(placeOrder: PlaceOrder): OrderDto {
+    override fun placeOrderDto(placeOrder: PlaceOrder): OrderDto {
         val order = orderDomainPort.placeOrder(placeOrder)
         return orderToOrderDtoConverter.convert(order) ?: throw IllegalArgumentException("wrong order")
     }

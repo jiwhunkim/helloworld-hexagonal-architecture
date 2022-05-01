@@ -4,7 +4,7 @@ import com.helloworld.order.application.service.dto.OrderDto
 import com.helloworld.order.domain.PlaceOrder
 
 interface OrderApplicationPort {
-    fun getOrder(id: Long): OrderDto
+    fun getOrderDto(id: Long): OrderDto
 
-    fun placeOrder(placeOrder: PlaceOrder): OrderDto
+    fun placeOrderDto(placeOrder: PlaceOrder): OrderDto
 }
