@@ -54,9 +54,9 @@ subprojects {
     apply {
         plugin("jacoco")
     }
-
     tasks.withType<Test> {
         useJUnitPlatform()
+        jvmArgs("--add-opens", "java.base/java.time=ALL-UNNAMED")
     }
 
     sonarqube {

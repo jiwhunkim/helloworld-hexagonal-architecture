@@ -3,7 +3,12 @@ package com.helloworld.order.domain
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
+import io.mockk.every
+import io.mockk.mockkStatic
 import java.math.BigDecimal
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class PlaceCartSpec: DescribeSpec() {
     init {
@@ -23,7 +28,10 @@ class PlaceCartSpec: DescribeSpec() {
                     quantity = 1,
                     price = BigDecimal.TEN
                 )
+                mockkStatic(ZonedDateTime::class)
+                every { ZonedDateTime.now() } returns ZonedDateTime.ofInstant(Instant.parse("2022-12-01T02:02:02.222Z"), ZoneId.of("Asia/Seoul"))
                 val id = PlaceCart(memberNo = 1L, items = listOf(placeCartLineItem)).createId()
+                println(id)
                 id.shouldNotBeNull()
             }
         }
