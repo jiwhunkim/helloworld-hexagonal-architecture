@@ -8,7 +8,11 @@ class OrderItemEntity(
     productId: Long,
     productName: String,
     quantity: Int,
-    price: BigDecimal,
+    salePrice: BigDecimal,
+    taxBaseAmount: BigDecimal,
+    taxFreeAmount: BigDecimal,
+    taxAmount: BigDecimal,
+    sellerId: Long,
     id: Long = 0,
 ) {
     @Id
@@ -29,6 +33,22 @@ class OrderItemEntity(
         protected set
 
     @Column
-    var price: BigDecimal = price
+    var salePrice: BigDecimal = salePrice
+        protected set
+
+    @Column
+    var taxBaseAmount: BigDecimal = taxBaseAmount
+        protected set
+
+    @Column
+    var taxFreeAmount: BigDecimal = taxFreeAmount
+        protected set
+
+    @Column
+    var taxAmount: BigDecimal = taxAmount
+        protected set
+
+    @Column
+    var sellerId: Long = sellerId
         protected set
 }

@@ -9,6 +9,7 @@ import com.helloworld.order.domain.entity.OrderItemEntity
 import com.helloworld.order.domain.entity.OrderJpaRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import java.math.BigDecimal
 
 @Component
 class OrderPersistenceAdapter(
@@ -28,7 +29,11 @@ class OrderPersistenceAdapter(
                 productId = it.productId,
                 productName = it.productName,
                 quantity = it.quantity,
-                price = it.price
+                salePrice = it.salePrice,
+                taxBaseAmount = it.taxBaseAmount,
+                taxFreeAmount = it.taxFreeAmount,
+                taxAmount = it.taxAmount,
+                sellerId = it.sellerId
             )
         }.toMutableList()
 
