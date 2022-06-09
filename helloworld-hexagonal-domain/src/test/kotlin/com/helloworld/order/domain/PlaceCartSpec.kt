@@ -15,7 +15,7 @@ class PlaceCartSpec: DescribeSpec() {
         describe(".constructor") {
             it("장바구니 생성시 최소 하나 이상의 상품이 있어야 한다.") {
                 shouldThrowExactly<IllegalArgumentException> {
-                    PlaceCart(memberNo = 1L, items = emptyList())
+                    PlaceCart(memberNo = "memberNo", items = emptyList())
                 }
             }
         }
@@ -30,7 +30,7 @@ class PlaceCartSpec: DescribeSpec() {
                 )
                 mockkStatic(ZonedDateTime::class)
                 every { ZonedDateTime.now() } returns ZonedDateTime.ofInstant(Instant.parse("2022-12-01T02:02:02.222Z"), ZoneId.of("Asia/Seoul"))
-                val id = PlaceCart(memberNo = 1L, items = listOf(placeCartLineItem)).createId()
+                val id = PlaceCart(memberNo = "memberNo", items = listOf(placeCartLineItem)).createId()
                 println(id)
                 id.shouldNotBeNull()
             }
