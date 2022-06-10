@@ -2,6 +2,7 @@ package com.helloworld.order.application.port.out
 
 import com.helloworld.order.adapter.out.persistence.CartPersistenceAdapter
 import com.helloworld.order.domain.PlaceCart
+import com.helloworld.order.domain.PlaceCartLineItem
 import com.helloworld.order.domain.entity.CartDataRedisRepository
 import com.helloworld.order.domain.entity.CartEntity
 import com.ninjasquad.springmockk.MockkBean
@@ -12,6 +13,7 @@ import io.mockk.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
+import java.math.BigDecimal
 
 @ActiveProfiles("test")
 @Import(CartPersistenceAdapter::class)
@@ -24,7 +26,15 @@ class PlaceCartPortSpec : DescribeSpec() {
 
     init {
         it(".place") {
-            val placeCart = PlaceCart("memberNo", emptyList())
+            val items: List<PlaceCartLineItem> = mutableListOf(
+                PlaceCartLineItem(
+                    productId = 1L,
+                    productName = "productName",
+                    quantity = 1,
+                    price = BigDecimal.ONE
+                )
+            )
+            val placeCart = PlaceCart("memberNo", items)
             val id = placeCart.createId()
             every { cartDataRedisRepository.save(any()) } returns CartEntity(id = id, accountId = placeCart.memberNo)
             val saved = placeCartPort.place(placeCart)
