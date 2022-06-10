@@ -3,9 +3,14 @@ package com.helloworld.order.adapter.out.persistence
 import com.helloworld.order.application.port.out.PlaceCartPort
 import com.helloworld.order.domain.Cart
 import com.helloworld.order.domain.PlaceCart
+import com.helloworld.order.domain.entity.CartDataRedisRepository
+import com.helloworld.order.domain.entity.CartEntity
 
-class CartPersistenceAdapter: PlaceCartPort {
+class CartPersistenceAdapter(
+    private val cartDataRedisRepository: CartDataRedisRepository
+) : PlaceCartPort {
     override fun place(cart: PlaceCart): Cart {
-        return Cart(id = "id", memberNo = "memberNo", items = emptyList())
+        val saved = cartDataRedisRepository.save(CartEntity(id = cart.createId(), accountId = cart.memberNo))
+        return Cart(id = saved.id, memberNo = saved.accountId, items = emptyList())
     }
 }
