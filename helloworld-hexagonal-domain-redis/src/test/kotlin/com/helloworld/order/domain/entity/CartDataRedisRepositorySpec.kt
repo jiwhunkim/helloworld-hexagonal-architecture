@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles
     RedisConfig::class
 )
 @ActiveProfiles("test")
-class CartRepositorySpec : DescribeSpec() {
+class CartDataRedisRepositorySpec : DescribeSpec() {
     @MockkBean
     lateinit var cartDataRedisRepository: CartDataRedisRepository
 
