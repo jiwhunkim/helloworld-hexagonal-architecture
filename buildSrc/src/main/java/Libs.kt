@@ -6,10 +6,11 @@ object Libs {
     const val spring_cloud_aws = "2.3.0"
     const val spring_dependency_management = "1.0.11.RELEASE"
     const val ktlint = "10.1.0"
-    const val allopen = "1.5.10"
+    const val allopen = "1.7.0"
     const val kassava = "2.0.0"
     const val kotest = "5.3.1"
-    const val kotest_extensions = "1.1.0"
+    const val kotest_extensions_spring = "1.1.1"
+    const val kotest_extensions_testcontainers = "1.3.3"
     const val mockk = "1.12.2"
     const val querydsl = "4.2.2"
     const val swagger = "3.0.0"
@@ -55,8 +56,8 @@ object Libs {
   object Kotest {
     const val runnerJunit5 = "io.kotest:kotest-runner-junit5:${Versions.kotest}"
     const val assertionsCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
-    const val extensionsSpring = "io.kotest.extensions:kotest-extensions-spring:${Versions.kotest_extensions}"
-    const val extensionsTestcontainers = "io.kotest.extensions:kotest-extensions-testcontainers:${Versions.kotest_extensions}"
+    const val extensionsSpring = "io.kotest.extensions:kotest-extensions-spring:${Versions.kotest_extensions_spring}"
+    const val extensionsTestcontainers = "io.kotest.extensions:kotest-extensions-testcontainers:${Versions.kotest_extensions_testcontainers}"
   }
 
   object Testcontainer {
@@ -71,8 +72,8 @@ object Libs {
   const val mariadbJavaClient = "org.mariadb.jdbc:mariadb-java-client"
   const val jacksonModuleKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin"
   const val fixture = "com.appmattus.fixture:fixture:1.1.0"
-  const val mockk = "io.mockk:mockk:1.11.0"
-  const val springMockk = "com.ninja-squad:springmockk:3.1.0"
+  const val mockk = "io.mockk:mockk:1.12.4"
+  const val springMockk = "com.ninja-squad:springmockk:3.1.1"
   const val snakeYaml = "org.yaml:snakeyaml:1.28"
   const val kotlinAllopen = "org.jetbrains.kotlin:kotlin-allopen:${Versions.allopen}"
   const val httpClient = "org.apache.httpcomponents:httpclient"

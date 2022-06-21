@@ -1,7 +1,6 @@
 plugins {
   id("org.flywaydb.flyway") version "8.2.3"
   kotlin("plugin.jpa")
-  id("java-test-fixtures")
 }
 
 val jar: Jar by tasks
