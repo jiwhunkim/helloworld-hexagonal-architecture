@@ -33,6 +33,13 @@ sonarqube {
     properties {
         property("sonar.projectKey", System.getenv()["SONAR_PROJECT_KEY"] ?: "helloworld-hexagonal")
         property("sonar.host.url", System.getenv()["SONAR_HOST_URL"] ?: "http://localhost:9000")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.exclusions", "**/*Test*.*,**/Q*.java,**/*Repository.kt,**/*Interceptor.kt,**entity/*,**/*Entity.*,**/*Constants.*")
+        property("sonar.cpd.exclusions", "**/*Config.kt,**/*Configuration.kt")
+        property("sonar.tests", "src/intTest/kotlin,src/test/kotlin")
+        property("sonar.test.inclusions", "**/*Test.kt,**/*TestConfig.kt")
+        property("sonar.coverage.exclusions", "**/*Test*.*,**/Q*.java,**/*Repository.kt,**/*Interceptor.kt,**entity/*,**/*Entity.*,**/*Constants.*")
+        property("sonar.qualitygate.wait", "true")
     }
 }
 
@@ -298,7 +305,7 @@ task<JacocoReport>("jacocoRootReport") {
         true
     }
     reports {
-        xml.isEnabled = true
-        html.isEnabled = true
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
