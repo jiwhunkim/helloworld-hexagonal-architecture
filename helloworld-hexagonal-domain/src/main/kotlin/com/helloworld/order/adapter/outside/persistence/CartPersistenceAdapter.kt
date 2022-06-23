@@ -1,6 +1,6 @@
 package com.helloworld.order.adapter.out.persistence
 
-import com.helloworld.order.application.port.out.PlaceCartPort
+import com.helloworld.order.application.port.outside.PlaceCartPort
 import com.helloworld.order.domain.Cart
 import com.helloworld.order.domain.PlaceCart
 import com.helloworld.order.domain.entity.CartDataRedisRepository

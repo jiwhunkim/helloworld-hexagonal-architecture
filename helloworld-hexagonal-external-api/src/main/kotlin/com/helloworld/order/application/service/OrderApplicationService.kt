@@ -1,6 +1,6 @@
 package com.helloworld.order.application.service
 
-import com.helloworld.order.application.port.`in`.OrderApplicationPort
+import com.helloworld.order.application.port.inside.OrderApplicationPort
 import com.helloworld.order.application.port.`in`.OrderApplicationServicePort
 import com.helloworld.order.application.port.`in`.converter.PlaceOrderRequestDtoConverter
 import com.helloworld.order.application.port.`in`.dto.GetOrderResponseDto

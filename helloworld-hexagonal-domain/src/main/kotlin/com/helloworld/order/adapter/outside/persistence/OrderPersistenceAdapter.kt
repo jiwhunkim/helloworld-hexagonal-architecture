@@ -1,7 +1,7 @@
 package com.helloworld.order.adapter.out.persistence
 
 import com.helloworld.order.adapter.out.persistence.converter.OrderToOrderEntityConverter
-import com.helloworld.order.application.port.out.OrderDomainPort
+import com.helloworld.order.application.port.outside.OrderDomainPort
 import com.helloworld.order.domain.Order
 import com.helloworld.order.domain.PlaceOrder
 import com.helloworld.order.domain.entity.OrderEntity
@@ -9,7 +9,6 @@ import com.helloworld.order.domain.entity.OrderItemEntity
 import com.helloworld.order.domain.entity.OrderJpaRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.math.BigDecimal
 
 @Component
 class OrderPersistenceAdapter(

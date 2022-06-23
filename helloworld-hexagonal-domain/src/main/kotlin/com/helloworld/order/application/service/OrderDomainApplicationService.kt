@@ -1,8 +1,8 @@
 package com.helloworld.order.application.service
 
 
-import com.helloworld.order.application.port.`in`.OrderApplicationPort
-import com.helloworld.order.application.port.out.OrderDomainPort
+import com.helloworld.order.application.port.inside.OrderApplicationPort
+import com.helloworld.order.application.port.outside.OrderDomainPort
 import com.helloworld.order.application.service.converter.OrderToOrderDtoConverter
 import com.helloworld.order.application.service.dto.OrderDto
 import com.helloworld.order.domain.PlaceOrder

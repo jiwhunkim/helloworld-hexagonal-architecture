@@ -1,4 +1,4 @@
-package com.helloworld.order.application.port.out
+package com.helloworld.order.application.port.outside
 
 import com.helloworld.order.domain.Cart
 import com.helloworld.order.domain.PlaceCart
