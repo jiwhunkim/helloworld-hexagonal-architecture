@@ -1,6 +1,6 @@
 object Libs {
   object Versions {
-    const val kotlin = "1.7.0"
+    const val kotlin = "1.7.20"
     const val spring_boot = "2.6.2"
     const val spring_cloud = "2021.0.0"
     const val spring_cloud_aws = "2.3.0"
@@ -8,9 +8,9 @@ object Libs {
     const val ktlint = "10.1.0"
     const val allopen = "1.7.0"
     const val kassava = "2.0.0"
-    const val kotest = "5.3.1"
-    const val kotest_extensions_spring = "1.1.1"
-    const val kotest_extensions_testcontainers = "1.3.3"
+    const val kotest = "5.5.3"
+    const val kotest_extensions_spring = "1.1.2"
+    const val kotest_extensions_testcontainers = "1.3.4"
     const val mockk = "1.12.2"
     const val querydsl = "4.2.2"
     const val swagger = "3.0.0"
