@@ -1,8 +1,8 @@
-package com.helloworld.order.adapter.out.persistence
+package com.helloworld.order.adapter.outside.persistence
 
-import com.helloworld.order.adapter.out.persistence.converter.OrderItemToOrderItemEntityConverterImpl
-import com.helloworld.order.adapter.out.persistence.converter.OrderToOrderEntityConverterImpl
-import com.helloworld.order.adapter.out.persistence.converter.OrderToOrderEntityConverterImpl_
+import com.helloworld.order.adapter.outside.persistence.converter.OrderItemToOrderItemEntityConverterImpl
+import com.helloworld.order.adapter.outside.persistence.converter.OrderToOrderEntityConverterImpl
+import com.helloworld.order.adapter.outside.persistence.converter.OrderToOrderEntityConverterImpl_
 import com.helloworld.order.domain.entity.OrderEntity
 import com.helloworld.order.domain.entity.OrderJpaRepository
 import com.ninjasquad.springmockk.MockkBean
@@ -22,7 +22,6 @@ import java.util.*
     OrderToOrderEntityConverterImpl::class,
     OrderToOrderEntityConverterImpl_::class
 )
-
 class OrderPersistenceAdapterSpec : DescribeSpec() {
     @MockkBean
     private lateinit var orderJpaRepository: OrderJpaRepository

@@ -5,7 +5,7 @@ import io.kotest.matchers.nulls.shouldNotBeNull
 import org.springframework.test.context.ActiveProfiles
 
 @ActiveProfiles("test")
-class CartEntitySpec: DescribeSpec() {
+class CartEntitySpec : DescribeSpec() {
     init {
         describe(".constructor") {
             it("construct with id") {

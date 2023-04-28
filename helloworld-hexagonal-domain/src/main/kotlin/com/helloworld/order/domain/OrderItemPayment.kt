@@ -22,11 +22,10 @@ class OrderItemPayment(
             // 카드 1000 쿠폰 2000
             // 쿠폰 대상 선별 쿠폰 금액 채움
 
-
             val result = mutableListOf<OrderItemPayment>()
 
             list.forEach { paymentLineItem ->
-                if(paymentLineItem.paymentMethod == PaymentMethod.COUPON) {
+                if (paymentLineItem.paymentMethod == PaymentMethod.COUPON) {
                     // 쿠폰 타겟 선별
                     // 쿠폰 대상 sum
                     // 쿠폰 대상 퍼센트
@@ -34,7 +33,7 @@ class OrderItemPayment(
                 } else {
                     // 쿠폰 대상 확인 쿠폰 대상이면
                     // 쿠폰금액 제하고 오브젝트 만듬
-                    // 물건합 - 쿠폰금액 
+                    // 물건합 - 쿠폰금액
                 }
             }
 

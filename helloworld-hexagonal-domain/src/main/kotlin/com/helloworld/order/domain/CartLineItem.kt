@@ -7,5 +7,4 @@ class CartLineItem(
     val productName: String,
     val quantity: Int,
     val price: BigDecimal
-) {
-}
+)

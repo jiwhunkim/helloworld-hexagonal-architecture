@@ -1,7 +1,7 @@
-package com.helloworld.order.adapter.`in`.web
+package com.helloworld.order.adapter.inside.web
 
-import com.helloworld.order.application.port.`in`.OrderApplicationServicePort
-import com.helloworld.order.application.port.`in`.dto.GetOrderResponseDto
+import com.helloworld.order.application.port.inside.OrderApplicationServicePort
+import com.helloworld.order.application.port.inside.dto.GetOrderResponseDto
 import org.springframework.web.bind.annotation.RestController
 
 @RestController

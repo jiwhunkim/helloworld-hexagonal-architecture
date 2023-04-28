@@ -16,16 +16,16 @@ dependencies {
     implementation(Libs.SpringBoot.starterDataRedis)
 
     implementation("javax.annotation:javax.annotation-api:1.3.2")
-    kapt("javax.annotation:javax.annotation-api:1.3.2")
+    kapt("jakarta.persistence:jakarta.persistence-api")
 
     implementation(Libs.SpringBoot.starterJdbc)
-    implementation("org.hibernate:hibernate-core")
+    implementation("org.hibernate.orm:hibernate-core:6.2.1.Final")
+
 
     implementation("com.querydsl:querydsl-jpa")
-    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
+    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jakarta")
 
-    testImplementation(Libs.Testcontainer.mysql)
-    testImplementation(Libs.Testcontainer.mariadb)
+    runtimeOnly(Libs.mariadbJavaClient)
 
     implementation(project(":helloworld-hexagonal-domain-redis"))
     testImplementation(testFixtures(project(":helloworld-hexagonal-domain-redis")))

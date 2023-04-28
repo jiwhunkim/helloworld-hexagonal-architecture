@@ -16,6 +16,6 @@ class OpenApiConfig {
             .info(
                 Info().title("Hello API").version(appVersion)
                     .license(License().name("Apache 2.0").url("http://springdoc.org"))
-            );
+            )
     }
 }

@@ -1,7 +1,6 @@
-package com.helloworld.order.application.port.out
+package com.helloworld.order.application.port.outside
 
-import com.helloworld.order.adapter.out.persistence.CartPersistenceAdapter
-import com.helloworld.order.application.port.outside.PlaceCartPort
+import com.helloworld.order.adapter.outside.persistence.CartPersistenceAdapter
 import com.helloworld.order.domain.PlaceCart
 import com.helloworld.order.domain.PlaceCartLineItem
 import com.helloworld.order.domain.entity.CartDataRedisRepository
@@ -9,7 +8,7 @@ import com.helloworld.order.domain.entity.CartEntity
 import com.ninjasquad.springmockk.MockkBean
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.*
+import io.mockk.every
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
@@ -42,5 +41,4 @@ class PlaceCartPortSpec : DescribeSpec() {
             saved.memberNo.shouldBe(placeCart.memberNo)
         }
     }
-
 }

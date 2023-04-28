@@ -7,5 +7,4 @@ import org.mapstruct.Mapper
 import org.springframework.core.convert.converter.Converter
 
 @Mapper(config = MapperSpringConfig::class)
-interface OrderItemToOrderItemDtoConverter : Converter<OrderItem, OrderItemDto> {
-}
+interface OrderItemToOrderItemDtoConverter : Converter<OrderItem, OrderItemDto>

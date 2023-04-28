@@ -1,5 +1,4 @@
 plugins {
-  id("org.flywaydb.flyway") version "8.2.3"
   kotlin("plugin.jpa")
 }
 
@@ -16,13 +15,12 @@ dependencies {
 
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     kapt("jakarta.persistence:jakarta.persistence-api")
-    kapt("javax.annotation:javax.annotation-api:1.3.2")
 
     implementation(Libs.SpringBoot.starterJdbc)
-    implementation("org.hibernate:hibernate-core")
+    implementation("org.hibernate.orm:hibernate-core:6.2.1.Final")
 
     implementation("com.querydsl:querydsl-jpa")
-    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
+    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jakarta")
 
     runtimeOnly(Libs.mariadbJavaClient)
 }

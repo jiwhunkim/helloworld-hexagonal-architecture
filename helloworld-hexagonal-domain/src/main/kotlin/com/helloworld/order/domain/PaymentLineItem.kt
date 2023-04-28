@@ -7,5 +7,4 @@ class PaymentLineItem(
     val taxBaseAmount: BigDecimal,
     val taxFreeAmount: BigDecimal,
     val taxAmount: BigDecimal
-) {
-}
+)

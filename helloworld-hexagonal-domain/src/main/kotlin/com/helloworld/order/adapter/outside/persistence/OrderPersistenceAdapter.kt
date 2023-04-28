@@ -1,6 +1,6 @@
-package com.helloworld.order.adapter.out.persistence
+package com.helloworld.order.adapter.outside.persistence
 
-import com.helloworld.order.adapter.out.persistence.converter.OrderToOrderEntityConverter
+import com.helloworld.order.adapter.outside.persistence.converter.OrderToOrderEntityConverter
 import com.helloworld.order.application.port.outside.OrderDomainPort
 import com.helloworld.order.domain.Order
 import com.helloworld.order.domain.PlaceOrder
@@ -39,6 +39,5 @@ class OrderPersistenceAdapter(
         val createOrder = OrderEntity(orderUser = placeOrder.orderUser, orderItems = orderItems)
         val saved = orderJpaRepository.save(createOrder)
         return orderConverter.convert(saved)
-
     }
 }

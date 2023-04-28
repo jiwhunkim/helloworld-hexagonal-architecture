@@ -1,4 +1,4 @@
-package com.helloworld.order.adapter.out.persistence
+package com.helloworld.order.adapter.outside.persistence
 
 import com.helloworld.order.application.port.outside.PlaceCartPort
 import com.helloworld.order.domain.Cart

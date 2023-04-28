@@ -1,7 +1,6 @@
 package com.helloworld.order.adapter.outside.persistence
 
 import com.helloworld.DomainApplication
-import com.helloworld.order.adapter.out.persistence.OrderPersistenceAdapter
 import com.helloworld.order.domain.PlaceOrder
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.nulls.shouldNotBeNull

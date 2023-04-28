@@ -4,5 +4,4 @@ class Order(
     val id: Long,
     val orderUser: String,
     val orderItems: MutableList<OrderItem>
-) {
-}
+)

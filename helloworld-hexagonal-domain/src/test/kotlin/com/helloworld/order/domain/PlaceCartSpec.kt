@@ -1,6 +1,5 @@
 package com.helloworld.order.domain
 
-import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.mockk.every
@@ -10,7 +9,7 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class PlaceCartSpec: DescribeSpec() {
+class PlaceCartSpec : DescribeSpec() {
     init {
         describe(".constructor") {
             it("장바구니 생성시 최소 하나 이상의 상품이 있어야 한다.") {

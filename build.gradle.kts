@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.api.file.DuplicatesStrategy.INCLUDE
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -18,29 +19,17 @@ plugins {
     kotlin("plugin.spring") version Libs.Versions.kotlin
     kotlin("plugin.jpa") version Libs.Versions.kotlin
 
+    id("io.gitlab.arturbosch.detekt") version Libs.Versions.detekt
     id("org.jlleitschuh.gradle.ktlint") version Libs.Versions.ktlint
     id("org.jlleitschuh.gradle.ktlint-idea") version Libs.Versions.ktlint
-    id("org.springframework.boot") version Libs.Versions.spring_boot
-    id("io.spring.dependency-management") version Libs.Versions.spring_dependency_management
+    id("org.springframework.boot") version Libs.Versions.springBoot
+    id("io.spring.dependency-management") version Libs.Versions.springDependencyManagement
     id("org.jetbrains.kotlin.plugin.allopen") version Libs.Versions.allopen
+    id("org.jetbrains.kotlinx.kover") version Libs.Versions.kover
     id("org.sonarqube") version Libs.Versions.sonarqube
     id("org.jetbrains.kotlin.plugin.lombok") version Libs.Versions.kotlin
-    id("io.freefair.lombok") version "6.3.0"
-    jacoco
-}
-
-sonarqube {
-    properties {
-        property("sonar.projectKey", System.getenv()["SONAR_PROJECT_KEY"] ?: "helloworld-hexagonal")
-        property("sonar.host.url", System.getenv()["SONAR_HOST_URL"] ?: "http://localhost:9000")
-        property("sonar.sourceEncoding", "UTF-8")
-        property("sonar.exclusions", "**/*Test*.*,**/Q*.java,**/*Repository.kt,**/*Interceptor.kt,**entity/*,**/*Entity.*,**/*Constants.*")
-        property("sonar.cpd.exclusions", "**/*Config.kt,**/*Configuration.kt")
-        property("sonar.tests", "src/intTest/kotlin,src/test/kotlin")
-        property("sonar.test.inclusions", "**/*Test.kt,**/*TestConfig.kt")
-        property("sonar.coverage.exclusions", "**/*Test*.*,**/Q*.java,**/*Repository.kt,**/*Interceptor.kt,**entity/*,**/*Entity.*,**/*Constants.*")
-        property("sonar.qualitygate.wait", "true")
-    }
+    id("io.freefair.lombok") version Libs.Versions.freefairLombok
+    id("net.razvan.jacoco-to-cobertura") version "1.1.0"
 }
 
 tasks.jar {
@@ -55,12 +44,33 @@ allprojects {
     repositories {
         mavenCentral()
     }
+
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+
+    detekt {
+        autoCorrect = true
+        buildUponDefaultConfig = true // preconfigure defaults
+        allRules = false // activate all available (even unstable) rules.
+        config = files("$rootDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        baseline = file("$rootDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+    }
+
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            html.required.set(true) // observe findings in your browser with structure and code snippets
+            xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
+            txt.required.set(true) // similar to the console output, contains issue signature to manually edit baseline files
+            sarif.required.set(true) // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with GitHub Code Scanning
+            md.required.set(true) // simple Markdown format
+        }
+    }
 }
 
 subprojects {
-    apply {
-        plugin("jacoco")
-    }
     tasks.withType<Test> {
         useJUnitPlatform()
         jvmArgs("--add-opens", "java.base/java.time=ALL-UNNAMED")
@@ -68,33 +78,7 @@ subprojects {
 
     sonarqube {
         properties {
-            property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml")
-        }
-    }
-
-    configure<JacocoPluginExtension> {
-        toolVersion = Libs.Versions.jacoco
-    }
-
-    tasks.withType<JacocoReport> {
-        reports {
-            html.isEnabled = true
-            xml.isEnabled = true
-            csv.isEnabled = false
-        }
-    }
-
-    tasks.withType<JacocoCoverageVerification> {
-        violationRules {
-            rule {
-                element = "BUNDLE"
-
-                limit {
-                    counter = "BRANCH"
-                    value = "COVEREDRATIO"
-                    minimum = "0.0".toBigDecimal()
-                }
-            }
+            property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/kover/report.xml")
         }
     }
 }
@@ -107,7 +91,7 @@ configure(kotlinModules) {
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "17"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
@@ -159,15 +143,17 @@ val mapstructModules = listOf(
 
 val flywayModules = listOf(
     project("helloworld-hexagonal-domain-rds"),
-    project("helloworld-hexagonal-domain"),
-    project("helloworld-hexagonal-external-api")
+    project("helloworld-hexagonal-domain")
 
 )
+
 configure(coreModules) {
     dependencies {
-        implementation("org.projectlombok:lombok:1.18.22")
-        annotationProcessor("org.projectlombok:lombok:1.18.22")
+        implementation("org.projectlombok:lombok:${Libs.Versions.lombok}")
+        annotationProcessor("org.projectlombok:lombok:${Libs.Versions.lombok}")
         implementation("com.google.code.findbugs:jsr305:3.0.2")
+
+        implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 
         implementation(platform(Libs.Boms.kotlinBom))
 
@@ -219,25 +205,6 @@ configure(coreModules) {
     }
 
     tasks.check { dependsOn(intTest) }
-
-    tasks.jacocoTestReport {
-        var qDomains = ('A'..'Z').map { "**/Q$it*" }
-
-        classDirectories.setFrom(
-            files(
-                classDirectories.files.map {
-                    fileTree(it) {
-                        exclude(
-                            qDomains
-                        )
-                    }
-                }
-            )
-        )
-        executionData.setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
-        shouldRunAfter(tasks.test, tasks.findByName("intTest")) // tests are required to run before generating the report
-    }
-
 // kotlin-allopen plugin configuration
 // ref: https://kotlinlang.org/docs/all-open-plugin.html
 // allOpen {
@@ -249,17 +216,17 @@ configure(springModules) {
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "kotlin-spring") // instead of "kotlin-allopen"
     apply(plugin = "org.springframework.boot")
+    apply(plugin = "org.jetbrains.kotlinx.kover")
 
     dependencies {
         implementation(Libs.jacksonModuleKotlin)
-        kapt(Libs.SpringBoot.configurationProcessor)
+        kapt(Libs.SpringBoot.springBootConfigurationProcessor)
+        runtimeOnly(Libs.SpringBoot.springBootDevtools)
         testImplementation(Libs.SpringBoot.starterTest)
     }
 }
 configure(testfixtureModules) {
-    apply {
-        plugin("java-test-fixtures")
-    }
+    apply(plugin = "java-test-fixtures")
 
     dependencies {
         "testFixturesImplementation"(Libs.SpringBoot.starterTest)
@@ -273,6 +240,13 @@ configure(testfixtureModules) {
     }
 }
 
+configure(flywayModules) {
+    dependencies {
+        implementation(Libs.flywayCore)
+        implementation(Libs.flywayMariaDb)
+    }
+}
+
 configure(mapstructModules) {
     dependencies {
         implementation(Libs.MapStruct.mapstruct)
@@ -281,31 +255,90 @@ configure(mapstructModules) {
     }
 }
 
-configure(flywayModules) {
-    dependencies {
-        implementation(Libs.flywayCore)
-        implementation(Libs.flywayMariaDb)
+sonarqube {
+    properties {
+        property("sonar.host.url", System.getenv()["SONAR_HOST_URL"] ?: "http://localhost:9000")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.exclusions", "**/*Test*.*,**/Q*.java,**/*Repository.kt,**/*Interceptor.kt,**entity/*,**/*Entity.*,**/*Constants.*")
+        property("sonar.cpd.exclusions", "**/*Config.kt,**/*Configuration.kt")
+        property("sonar.tests", "src/intTest/kotlin,src/test/kotlin")
+        property("sonar.test.inclusions", "**/*Test.kt,**/*TestConfig.kt")
+        property("sonar.coverage.exclusions", "**/*Test*.*,**/Q*.java,**/*Repository.kt,**/*Interceptor.kt,**entity/*,**/*Entity.*,**/*Constants.*")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.qualitygate.wait", "true")
+        property("sonar.projectKey", System.getenv()["SONAR_PROJECT_KEY"] ?: "helloworld-hexagonal")
+        property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/kover/report.xml")
     }
 }
 
-jacoco {
-    toolVersion = Libs.Versions.jacoco
+dependencies {
+    kover(project("helloworld-hexagonal-domain-rds"))
+    kover(project("helloworld-hexagonal-domain-redis"))
+    kover(project("helloworld-hexagonal-domain"))
+    kover(project("helloworld-hexagonal-external-api"))
+    kover(project("client:coupon"))
 }
 
-task<JacocoReport>("jacocoRootReport") {
-    dependsOn(subprojects.map { it.tasks.withType<JacocoReport>() })
-    sourceDirectories.setFrom(subprojects.map { it.tasks.findByName("jacocoTestReport")!!.property("sourceDirectories") })
-    classDirectories.setFrom(subprojects.map { it.tasks.findByName("jacocoTestReport")!!.property("classDirectories") })
-    executionData.setFrom(
-        project.fileTree(".") {
-            include("**/build/jacoco/**.exec")
+koverReport {
+    defaults {
+        filters {
+            // exclusions for reports
+            excludes {
+                // excludes class by fully-qualified JVM class name, wildcards '*' and '?' are available
+                classes(
+                    "*Kt",
+                    "*Spec",
+                    "*Test",
+                    "*Config",
+                    "*Repository",
+                    "*Interceptor",
+                    "*entity*",
+                    "*Entity*",
+                    "*Constants*"
+                )
+                // excludes all classes located in specified package and it subpackages, wildcards '*' and '?' are available
+                // packages("com.another.subpackage")
+                // excludes all classes and functions, annotated by specified annotations, wildcards '*' and '?' are available
+                annotatedBy("*Generated*")
+            }
+
+            // inclusions for reports
+            includes {
+                // includes class by fully-qualified JVM class name, wildcards '*' and '?' are available
+                classes("com.helloworld.*")
+                // includes all classes located in specified package and it subpackages
+                // packages("com.another.subpackage")
+            }
         }
-    )
-    onlyIf {
-        true
     }
-    reports {
-        xml.required.set(true)
-        html.required.set(true)
+}
+
+jacocoToCobertura {
+    inputFile.set(file("build/reports/kover/report.xml"))
+    outputFile.set(file("build/reports/kover/cobertura.xml"))
+}
+
+tasks.register("koverPrintMergedXmlCoverage") {
+    group = "verification"
+
+    val koverMergedXmlReport = tasks.named("koverXmlReport")
+    dependsOn(koverMergedXmlReport)
+    doLast {
+        //language=RegExp
+        val regexp = """<counter type="INSTRUCTION" missed="(\d+)" covered="(\d+)"/>""".toRegex()
+        koverMergedXmlReport.get().outputs.files.forEach { file ->
+            // Read file by lines
+            file.useLines { lines ->
+                // Last line in file that matches regexp is the total coverage
+                lines.last(regexp::containsMatchIn).let { line ->
+                    // Found the match
+                    regexp.find(line)?.let {
+                        val missed = it.groupValues[1].toInt()
+                        val covered = it.groupValues[2].toInt()
+                        println("Total Code Coverage: ${covered * 100 / (missed + covered)}%")
+                    }
+                }
+            }
+        }
     }
 }

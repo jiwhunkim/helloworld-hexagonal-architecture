@@ -4,5 +4,4 @@ class Cart(
     val id: String,
     val memberNo: String,
     val items: List<CartLineItem>
-) {
-}
+)

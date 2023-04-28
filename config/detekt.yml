@@ -1,0 +1,72 @@
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+config:
+  validation: false
+  warningsAsErrors: false
+
+output-reports:
+  active: true
+  exclude:
+    - 'TxtOutputReport'
+    - 'SarifOutputReport'
+    - 'MdOutputReport'
+
+formatting:
+  ArgumentListWrapping:
+    indentSize: 4
+    maxLineLength: 150
+  MaximumLineLength:
+    maxLineLength: 150
+    ignoreBackTickedIdentifier: true
+  ParameterListWrapping:
+    maxLineLength: 150
+  Filename:
+    active: false
+  Indentation:
+    indentSize: 4
+  PackageName:
+    active: false
+
+naming:
+  active: true
+  BooleanPropertyNaming:
+    active: true
+    allowedPattern: '^(is|has|are)'
+  MatchingDeclarationName:
+    mustBeFirst: true
+  InvalidPackageDeclaration:
+    active: true
+  PackageNaming:
+    active: false
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    maxLineLength: 150
+  UnnecessaryAbstractClass:
+    active: true
+  UnusedImports:
+    active: true
+  ReturnCount:
+    active: false
+  UnusedPrivateMember:
+    active: true
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: true
+
+complexity:
+  LongParameterList:
+    active: true
+    functionThreshold: 20
+    constructorThreshold: 20
+  TooManyFunctions:
+    thresholdInFiles: 20
+
+performance:
+  SpreadOperator:
+    active: false

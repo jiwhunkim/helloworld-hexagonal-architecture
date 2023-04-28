@@ -1,4 +1,4 @@
-package com.helloworld.order.adapter.out.persistence.converter
+package com.helloworld.order.adapter.outside.persistence.converter
 
 import com.helloworld.order.domain.Order
 import com.helloworld.order.domain.entity.OrderEntity
