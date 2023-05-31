@@ -1,7 +1,7 @@
 object Libs {
     object Versions {
         const val kotlin = "1.8.20"
-        const val springBoot = "3.0.6"
+        const val springBoot = "3.1.0"
         const val springCloud = "2022.0.2"
         const val spring_cloud_aws = "2.3.0"
         const val springDependencyManagement = "1.1.0"
@@ -12,7 +12,7 @@ object Libs {
         const val kotestExtensionsSpring = "1.1.3"
         const val kotestExtensionsTestcontainers = "1.3.4"
         const val mockk = "1.13.5"
-        const val hibernate_jpa_api = "1.0.2.Final"
+        const val mariadb = "2.7.9"
         const val querydsl = "4.2.2"
         const val slf4j = "1.7.30"
         const val logbackClassic = "1.2.3"

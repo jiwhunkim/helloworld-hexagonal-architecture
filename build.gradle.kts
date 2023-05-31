@@ -224,6 +224,8 @@ configure(springModules) {
         runtimeOnly(Libs.SpringBoot.springBootDevtools)
         testImplementation(Libs.SpringBoot.starterTest)
     }
+
+    ext["mariadb.version"] = Libs.Versions.mariadb
 }
 configure(testfixtureModules) {
     apply(plugin = "java-test-fixtures")
