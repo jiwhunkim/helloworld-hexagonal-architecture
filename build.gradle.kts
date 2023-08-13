@@ -72,7 +72,6 @@ allprojects {
 
 subprojects {
     tasks.withType<Test> {
-        useJUnitPlatform()
         jvmArgs("--add-opens", "java.base/java.time=ALL-UNNAMED")
     }
 
@@ -179,38 +178,37 @@ configure(coreModules) {
         duplicatesStrategy = INCLUDE
     }
 
-    sourceSets {
-        create("intTest") {
-            compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-            runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+    testing {
+        suites {
+            val test by getting(JvmTestSuite::class) {
+                useJUnitJupiter()
+            }
 
-            resources.srcDir(file("src/intTest/resources"))
+            register<JvmTestSuite>("intTest") {
+                sources {
+                    java {
+                        setSrcDirs(listOf("src/intTest/kotlin"))
+                    }
+                    resources {
+                        setSrcDirs(listOf("src/intTest/resources"))
+                    }
+                }
+
+                dependencies {
+                    implementation(project())
+                }
+            }
+
         }
     }
 
-    val intTestImplementation: Configuration by configurations.getting {
-        extendsFrom(configurations.implementation.get(), configurations.testImplementation.get())
+    val intTestImplementation by configurations.getting {
+        extendsFrom(configurations.testImplementation.get())
     }
 
-    configurations["intTestImplementation"].extendsFrom(configurations.testImplementation.get())
-    configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
-
-    val intTest = task<Test>("intTest") {
-        description = "Runs integration tests."
-        group = "verification"
-
-        testClassesDirs = sourceSets["intTest"].output.classesDirs
-        classpath = sourceSets["intTest"].runtimeClasspath
-        shouldRunAfter("test")
+    tasks.named("check") {
+        dependsOn(testing.suites.named("intTest"))
     }
-
-    tasks.check { dependsOn(intTest) }
-// kotlin-allopen plugin configuration
-// ref: https://kotlinlang.org/docs/all-open-plugin.html
-// allOpen {
-//   annotation("com.my.Annotation")
-//   annotations("com.another.Annotation", "com.third.Annotation")
-// }
 }
 configure(springModules) {
     apply(plugin = "io.spring.dependency-management")

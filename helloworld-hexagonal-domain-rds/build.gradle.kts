@@ -12,6 +12,8 @@ dependencies {
     implementation(Libs.SpringBoot.starterDataJpa) {
         exclude(module = "hibernate-core")
     }
+    implementation("org.springframework.boot:spring-boot-starter-json")
+
 
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     kapt("jakarta.persistence:jakarta.persistence-api")
