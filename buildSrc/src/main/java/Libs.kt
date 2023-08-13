@@ -27,8 +27,8 @@ object Libs {
         const val flyway = "9.16.3"
         const val lombok = "1.18.26"
         const val detekt = "1.23.1"
-        const val kover = "0.7.0-Beta"
-        const val freefairLombok = "8.0.1"
+        const val kover = "0.7.3"
+        const val freefairLombok = "8.1.0"
         const val jacocoToCobertura = "1.1.0"
         const val springopenapi = "2.1.0"
     }
