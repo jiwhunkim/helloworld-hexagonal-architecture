@@ -28,7 +28,9 @@ class PlaceCartSpec : DescribeSpec() {
                     price = BigDecimal.TEN
                 )
                 mockkStatic(ZonedDateTime::class)
-                every { ZonedDateTime.now() } returns ZonedDateTime.ofInstant(Instant.parse("2022-12-01T02:02:02.222Z"), ZoneId.of("Asia/Seoul"))
+                every {
+                    ZonedDateTime.now()
+                } returns ZonedDateTime.ofInstant(Instant.parse("2022-12-01T02:02:02.222Z"), ZoneId.of("Asia/Seoul"))
                 val id = PlaceCart(memberNo = "memberNo", items = listOf(placeCartLineItem)).createId()
                 println(id)
                 id.shouldNotBeNull()

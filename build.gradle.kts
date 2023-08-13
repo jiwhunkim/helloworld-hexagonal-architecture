@@ -56,7 +56,7 @@ allprojects {
     }
 
     dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
     }
 
     tasks.withType<Detekt>().configureEach {
@@ -155,20 +155,12 @@ configure(coreModules) {
         implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
 
         implementation(platform(Libs.Boms.kotlinBom))
-
-        implementation(platform(Libs.Boms.testContainerBom))
         testImplementation(Libs.Kotest.runnerJunit5)
         testImplementation(Libs.Kotest.assertionsCore)
         testImplementation(Libs.Kotest.extensionsSpring)
-        testImplementation(Libs.Kotest.extensionsTestcontainers)
         testImplementation(Libs.fixture)
         testImplementation(Libs.mockk)
         testImplementation(Libs.springMockk)
-
-        testImplementation(Libs.Testcontainer.junitJupiter)
-        testImplementation(Libs.Testcontainer.mysql)
-        testImplementation(Libs.Testcontainer.mariadb)
-        testImplementation(Libs.Testcontainer.kafka)
     }
 
     tasks.withType<ProcessResources> {
@@ -196,9 +188,14 @@ configure(coreModules) {
 
                 dependencies {
                     implementation(project())
+                    implementation(platform(Libs.Boms.testContainerBom))
+                    implementation(Libs.Kotest.extensionsTestcontainers)
+                    implementation(Libs.Testcontainer.junitJupiter)
+                    implementation(Libs.Testcontainer.mysql)
+                    implementation(Libs.Testcontainer.mariadb)
+                    implementation(Libs.Testcontainer.kafka)
                 }
             }
-
         }
     }
 

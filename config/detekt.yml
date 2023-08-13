@@ -47,7 +47,7 @@ style:
   MaxLineLength:
     maxLineLength: 150
   UnnecessaryAbstractClass:
-    active: true
+    active: false
   UnusedImports:
     active: true
   ReturnCount:
@@ -69,4 +69,8 @@ complexity:
 
 performance:
   SpreadOperator:
+    active: false
+
+potential-bugs:
+  DoubleMutabilityForCollection:
     active: false

@@ -1,6 +1,6 @@
 object Libs {
     object Versions {
-        const val kotlin = "1.8.20"
+        const val kotlin = "1.9.0"
         const val springBoot = "3.1.0"
         const val springCloud = "2022.0.2"
         const val spring_cloud_aws = "2.3.0"
@@ -26,7 +26,7 @@ object Libs {
         const val testcontainer = "1.18.0"
         const val flyway = "9.16.3"
         const val lombok = "1.18.26"
-        const val detekt = "1.22.0"
+        const val detekt = "1.23.1"
         const val kover = "0.7.0-Beta"
         const val freefairLombok = "8.0.1"
         const val jacocoToCobertura = "1.1.0"
