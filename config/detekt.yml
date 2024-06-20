@@ -3,7 +3,7 @@ build:
   excludeCorrectable: false
 
 config:
-  validation: false
+  validation: true
   warningsAsErrors: false
 
 output-reports:
@@ -14,19 +14,27 @@ output-reports:
     - 'MdOutputReport'
 
 formatting:
+  Wrapping:
+    maxLineLength: 200
   ArgumentListWrapping:
     indentSize: 4
-    maxLineLength: 150
+    maxLineLength: 200
   MaximumLineLength:
-    maxLineLength: 150
+    maxLineLength: 200
     ignoreBackTickedIdentifier: true
   ParameterListWrapping:
-    maxLineLength: 150
+    maxLineLength: 200
+  PropertyWrapping:
+    active: false
   Filename:
     active: false
   Indentation:
     indentSize: 4
   PackageName:
+    active: false
+  SpacingAroundColon:
+    active: false
+  SpacingAroundCurly:
     active: false
 
 naming:
@@ -40,14 +48,17 @@ naming:
     active: true
   PackageNaming:
     active: false
+  ConstructorParameterNaming:
+    parameterPattern: '^(_)?[a-z$][a-zA-Z$0-9]*$'
+
 
 style:
   MagicNumber:
     active: false
   MaxLineLength:
-    maxLineLength: 150
+    maxLineLength: 200
   UnnecessaryAbstractClass:
-    active: false
+    active: true
   UnusedImports:
     active: true
   ReturnCount:
@@ -55,22 +66,19 @@ style:
   UnusedPrivateMember:
     active: true
 
+
 exceptions:
   TooGenericExceptionCaught:
-    active: true
+    active: false
 
 complexity:
   LongParameterList:
     active: true
-    functionThreshold: 20
-    constructorThreshold: 20
+    constructorThreshold: 50
+    functionThreshold: 50
   TooManyFunctions:
     thresholdInFiles: 20
 
 performance:
   SpreadOperator:
-    active: false
-
-potential-bugs:
-  DoubleMutabilityForCollection:
     active: false

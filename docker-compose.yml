@@ -8,21 +8,21 @@ services:
     volumes:
     - ./local/docker-volumes/redis:/data
 
-  mariadb:
-    container_name: "mariadb"
-    image: mariadb:latest
+  mysql:
+    container_name: "mysql"
+    image: mysql:latest
     restart: always
-    command: mysqld --skip-character-set-client-handshake --init_connect='SET NAMES utf8mb4;' --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    command: [ '--init_connect=SET NAMES utf8mb4;', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_general_ci' ]
     environment:
       MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_USE: user
+      MYSQL_USER: user
       MYSQL_PASSWORD: pass
       TZ: 'Asia/Seoul'
     ports:
-    - "3306:3306"
+      - "3306:3306"
     volumes:
-    - ./local/docker-volumes/mariadb:/var/lib/mysql:rw
-    - ./local/docker-config/mariadb/config-file.cnf:/etc/mysql/conf.d/config-file.cnf:rw
+      - ./local/docker-volumes/mysql:/var/lib/mysql:rw
+      - ./local/docker-config/mysql/config-file.cnf:/etc/mysql/conf.d/config-file.cnf:rw
 
   zookeeper:
     container_name: "zookeeper"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$(uname)" == "Darwin" ]; then
+  ./gradlew ktlintCheck
+  RESULT=$?
+  exit $RESULT
+else
+  echo "Skip for ktlintCheck. ktlintCheck executes on only local machine."
+  exit 0
+fi

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# ktlintFormat must not run during ci process.
+if [ "$(uname)" == "Darwin" ]; then
+  ./gradlew detekt
+  RESULT=$?
+  exit $RESULT
+else
+  echo "Skip for ktlintCheck. ktlintCheck executes on only local machine."
+  exit 0
+fi

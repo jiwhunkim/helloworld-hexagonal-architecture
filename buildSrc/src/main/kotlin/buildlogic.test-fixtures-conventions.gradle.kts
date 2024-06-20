@@ -1,0 +1,4 @@
+
+plugins {
+    `java-test-fixtures`
+}

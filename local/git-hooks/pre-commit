@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./.git/hooks/pre-commit-task/ktlintCheck
+./.git/hooks/pre-commit-task/detekt
