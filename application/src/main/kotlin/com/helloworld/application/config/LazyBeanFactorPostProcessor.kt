@@ -1,4 +1,4 @@
-package com.helloworld.config
+package com.helloworld.application.config
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
