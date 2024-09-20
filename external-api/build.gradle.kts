@@ -16,7 +16,7 @@ plugins {
 
 dependencies {
     implementation(project(":data:redis"))
-    implementation(project(":data:rds"))
+    implementation(project(":data:mysql"))
     implementation(project(":domain"))
     implementation(project(":application"))
 

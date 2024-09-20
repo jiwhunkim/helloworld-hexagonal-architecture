@@ -15,5 +15,4 @@ jar.enabled = true
 dependencies {
     implementation(libs.spring.boot.starter)
     testFixturesImplementation(libs.fixture)
-    testFixturesImplementation(libs.fixture.kotest)
 }

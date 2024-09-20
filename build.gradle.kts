@@ -62,7 +62,7 @@ sonarqube {
 }
 
 dependencies {
-    kover(project("data:rds"))
+    kover(project("data:mysql"))
     kover(project("data:redis"))
     kover(project(":domain"))
     kover(project(":external-api"))

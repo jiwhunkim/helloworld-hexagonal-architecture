@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ComponentScan(
     lazyInit = true,
-    basePackages = ["com.helloworld.config", "com.helloworld.order"]
+    basePackages = ["com.helloworld.config", "com.helloworld.order"],
 )
 class AppConfig

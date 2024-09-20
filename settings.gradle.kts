@@ -7,7 +7,7 @@ pluginManagement {
 }
 
 include(
-    "data:rds",
+    "data:mysql",
     "data:redis",
     ":domain",
     ":application",

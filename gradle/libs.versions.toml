@@ -17,8 +17,6 @@ springdoc-openapi = "2.5.0"
 kotest-extensions-spring = "1.1.3"
 kotest-extensions-testcontainers = "2.0.2"
 fixture = "1.2.0"
-fixture-kotest = "1.2.0"
-fixture-java-faker = "1.2.0"
 snakeyaml = "2.2"
 testcontainers = "1.19.7"
 kotlin-logging-jvm = "5.1.0"
@@ -27,7 +25,7 @@ asciidoctor-gradle-jvm = "4.0.2"
 jakarta-annotation-api = "3.0.0"
 google-jsr305 = "3.0.2"
 wooowahub-publisher-client = "1.30.5"
-flywaydb = "10.11.0"
+flywaydb = "10.18.0"
 sonarqube = "5.0.0.4638"
 logstash-logback-encoder = "7.4"
 
@@ -54,8 +52,6 @@ testcontainers-mariadb = { module = "org.testcontainers:mariadb", version.ref = 
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
 kotlin-logging-jvm = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlin-logging-jvm" }
 fixture = { module = "com.appmattus.fixture:fixture", version.ref = "fixture" }
-fixture-kotest = { module = "com.appmattus.fixture:fixture-kotest", version.ref = "fixture-kotest" }
-fixture-java-faker = { module = "com.appmattus.fixture:fixture-javafaker", version.ref = "fixture-java-faker" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "kotest" }

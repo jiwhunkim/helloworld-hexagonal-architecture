@@ -22,5 +22,4 @@ dependencies {
     testFixturesImplementation(libs.kotest.runner.junit5)
     testFixturesImplementation(libs.testcontainers)
     testFixturesImplementation(libs.fixture)
-    testFixturesImplementation(libs.fixture.kotest)
 }
