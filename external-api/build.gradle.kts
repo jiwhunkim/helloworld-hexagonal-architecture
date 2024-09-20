@@ -25,6 +25,8 @@ dependencies {
     implementation(libs.spring.cloud.starter.openfeign)
     implementation(libs.springdoc.openapi.starter.webmvc.ui)
     implementation(libs.logstash.logback.encoder)
+
+    intTestImplementation(testFixtures(project(":data:mysql")))
 }
 
 configure<com.epages.restdocs.apispec.gradle.OpenApi3Extension> {

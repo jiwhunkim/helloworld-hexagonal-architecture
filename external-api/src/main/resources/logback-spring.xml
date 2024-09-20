@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <springProfile name="local">
+    <springProfile name="local, test">
         <include resource="org/springframework/boot/logging/logback/base.xml"/>
         <logger name="org.springframework.web" level="DEBUG"/>
         <logger name="org.hibernate.SQL" level="DEBUG"/>
@@ -9,7 +8,7 @@
         <logger name="com.helloworld" level="DEBUG"/>
     </springProfile>
 
-    <springProfile name="develop">
+    <springProfile name="dev">
         <property name="LOG_PATH" value="logs/spring/"/>
         <include resource="org/springframework/boot/logging/logback/defaults.xml" />
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
