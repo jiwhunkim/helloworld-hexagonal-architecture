@@ -9,9 +9,9 @@ import org.springframework.test.context.ActiveProfiles
 @ActiveProfiles(value = ["test"])
 @SpringBootTest(classes = [MysqlApplication::class])
 @Import(MysqlContainerConfig::class)
-class DomainRdsSpringBootSpec : DescribeSpec() {
+class MysqlApplicationSpec : DescribeSpec() {
     init {
-        describe("DomainRdsApplication") {
+        describe("MysqlApplication") {
             it("integration") {
                 "1".shouldBe("1")
             }
